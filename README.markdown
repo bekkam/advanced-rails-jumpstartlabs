@@ -1,2 +1,2 @@
-#### Branch for learning facade pattern
-http://tutorials.jumpstartlab.com/topics/models/facade_pattern.html
+#### Branch for learning Better Models with Modules
+http://tutorials.jumpstartlab.com/topics/models/modules.html
