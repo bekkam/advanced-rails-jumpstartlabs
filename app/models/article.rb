@@ -9,6 +9,9 @@ class Article < ActiveRecord::Base
 
   #default_scope :include => [:comments, :tags]
 
+  # add module with factored out functionality
+  include TextContent
+
   def to_s
     return title
   end
@@ -48,14 +51,6 @@ class Article < ActiveRecord::Base
       tag = Tag.find_by_name(tag_name)
       tag ? [tag.articles, tag] : [[], nil]
     end
-  end
-
-  def word_count
-    body.split.count
-  end
-
-  def self.total_word_count
-    all.inject(0) {|total, a| total += a.word_count }
   end
 
   def self.generate_samples(quantity = 1000)
