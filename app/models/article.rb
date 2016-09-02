@@ -50,9 +50,9 @@ class Article < ActiveRecord::Base
     end
   end
 
-  def self.for_dashboard
-    order('created_at DESC').limit(5)
-  end
+  # def self.for_dashboard
+  #   order('created_at DESC').limit(5)
+  # end
 
   def word_count
     body.split.count
