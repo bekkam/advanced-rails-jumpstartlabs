@@ -1,0 +1,49 @@
+<h1><%= @article.title %></h1>
+<h4>Published <%= @article.formatted_created_at %></h4>
+<p class='tag_list'><em>Tagged:</em> <%= @article.tag_list %></p>
+
+<p><%= @article.body %></p>
+
+
+<div class='article_actions'>
+  <%= @article.edit_icon("Edit") %>
+  <!-- change to use decorator (call decorator method on @article-->
+  <%= @article.delete_icon("Delete") %>
+
+  <!-- change link to a decorator -->
+  <%= @article.link("Back to All Articles") %>
+
+</div>
+
+<h3><%= @article.comments_count %></h3>
+
+<div id='comments'>
+  <% @article.comments.each do |comment| %>
+    <div class='comment'>
+      <p>
+        <em><%= comment.author_name %></em>
+        said <%= distance_of_time_in_words(@article.created_at, comment.created_at) %> later:
+      </p>
+      <p><%= comment.body %></p>
+    </div>
+  <% end %>
+</div>
+
+<h4>Add Your Comment</h4>
+<%= form_for(@article.comments.new) do |f| %>
+    <p>
+        <%= f.label :author_name %><br/>
+        <%= f.text_field :author_name %>
+    </p>
+    <p>
+        <%= f.label :body %><br/>
+        <%= f.text_area :body %>
+    </p>
+    <%= f.hidden_field :article_id%>
+    <%= f.submit "Save", :id => 'post_comment' %>
+<% end %>
+
+<!-- Further study from tutorial -->
+<h6>Json is: </h6>
+<p><%= @json %></p>
+
