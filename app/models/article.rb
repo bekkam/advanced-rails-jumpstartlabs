@@ -3,7 +3,7 @@ class Article < ActiveRecord::Base
   validates :body, :presence => true
 
   belongs_to :author
-  has_many :comments
+  # has_many :comments
   has_many :taggings
   has_many :tags, :through => :taggings
 
@@ -11,6 +11,7 @@ class Article < ActiveRecord::Base
 
   # add module with factored out functionality
   include TextContent
+  include Commentable
 
   def to_s
     return title
