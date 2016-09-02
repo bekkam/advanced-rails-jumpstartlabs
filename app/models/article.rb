@@ -42,6 +42,8 @@ class Article < ActiveRecord::Base
   def self.search_by_tag_name(tag_name)
     if tag_name.blank?
       [Article.all, nil]
+      # change to Article.scoped for lazy eval
+      # [Article.scoped, nil]
     else
       tag = Tag.find_by_name(tag_name)
       tag ? [tag.articles, tag] : [[], nil]

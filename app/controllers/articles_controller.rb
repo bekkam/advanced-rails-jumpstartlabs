@@ -1,17 +1,14 @@
 class ArticlesController < ApplicationController
-  def show
-    @article = ArticleDecorator.find(params[:id])
-    # show json in browser for admins
-    @json = @article.to_json
-  end
+  # TODO: move json display out of show
+  # def show
+  #   # @article = ArticleDecorator.find(params[:id])
+  #   # show json in browser for admins
+  #   @json = article.to_json
+  # end
 
   def index
     articles, @tag = Article.search_by_tag_name(params[:tag])
     @articles = ArticleDecorator.decorate_collection(articles)
-  end
-
-  def new
-    @article = Article.new
   end
 
   def create
@@ -44,7 +41,26 @@ class ArticlesController < ApplicationController
     flash[:notice] = "#{article} was destroyed."
     redirect_to articles_path
   end
-  
+
+  # FIXME: there must be a less duplicative way to decorate both new and show articles..
+  # use an instance variable (@cached_article) to memoize the object after the first request => better performance, reduces queries
+  def article
+    @cached_article ||= if params[:id]
+      Article.find(params[:id])
+      decorate_article(params[:id])
+    else
+      Article.new
+    end
+  end
+
+  # incorporate decorator pattern
+  def decorate_article(id)
+    ArticleDecorator.find(id)
+  end
+
+  # expose article to view as a helper method
+  helper_method :article
+
   private
 
   def article_params
