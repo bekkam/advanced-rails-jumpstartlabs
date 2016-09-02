@@ -1,1 +1,2 @@
-http://tutorials.jumpstartlab.com/topics/controllers/slimming_controllers.html
+#### Branch for learning facade pattern
+http://tutorials.jumpstartlab.com/topics/models/facade_pattern.html
