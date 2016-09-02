@@ -12,8 +12,8 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
-    if @article.save
+    if article.attributes = (article_params)
+      article.save
       flash[:notice] = "Article was created."
       redirect_to articles_path
     else
@@ -21,15 +21,10 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def edit
-    @article = Article.find params[:id]
-  end
-
   def update
-    @article = Article.find params[:id]
-    if @article.update_attributes(article_params)
+    if article.update_attributes(article_params)
       flash[:notice] = "Article was updated."
-      redirect_to article_path(@article)
+      redirect_to article_path(article)
     else
       render :edit
     end
